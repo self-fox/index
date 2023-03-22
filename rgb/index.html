@@ -1,1 +1,149 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="assets/images/new_birdflop_logo_large.png" type="image/x-icon">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript"  src="/assets/js/js.cookie.js"></script>
+    <title>Self-Fox ~ RGB colorr</title>
+  </head>
 
+  <body id="bg" class="container" style="font-family: Quicksand;">
+  
+    
+    <div id="hexColorTemplate" style="display:none;">
+      <div class="row">
+        <label for="color-$NUM">Цвет #$NUM</label>
+        <input class="form-control col-md-1 hexColor" id="color-$NUM" style="border-radius: 10px;" value="$VAL"
+               data-jscolor="{preset:'small dark', position:'right'}" oninput="javascript: updateOutputText(event)"
+               onchange="javascript: updateOutputText(event); Cookies.set(`#${$NUM}`, document.getElementById('color-$NUM').value, { expires: 7, path: '' })"/>
+      </div>
+    </div>
+    
+    <div id="content">
+      <!-- <h1 id="title">RGBirdflop</h1>
+      <p id="graylabel1" class="gray" style="padding-bottom: 10px;">Use Google Chrome for the best experience.</p> -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-2" style="padding-left: 0;">
+            <div id="hexColors" class="container-fluid">
+              <!-- Will be populated in JavaScript -->
+            </div>
+          </div>
+          <div class="col-md-10" style="padding-right: 0;">
+            <div class="container-fluid">
+              <div class="row">
+                <div id="output">
+                  <label id="label4" for="outputText">Ваш Текст</label>
+                  <label id="graylabel2" class="gray" for="outputText" style="font-weight: normal;"></label>
+                  <pre id="outputText" style="border-radius: 10px; white-space: pre-wrap; height: 70px; margin-right: 15px; font-family: MinecraftRegular; margin-bottom: 5px;"
+                       onclick="copyTextToClipboard(this.textContent);"></pre>
+                  <p id="error">⚠️ | Это более 256 символов и может не поместиться в окне чата.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div id="coloredNick" class="minecraft"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-3" style="padding-left: 0;">
+                  <label for="nickname">Текст:</label>
+                  <input class="form-control" id="nickname" type="text" maxlength="100" placeholder="Your Text"
+                         value="https://self-fox.github.io/index/" oninput="javascript: updateOutputText(event);"
+                         onchange="javascript: updateOutputText(event)">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3" style="padding-left: 0;">
+                  <label for="output-format">Формат Текста</label>
+                  <select id="output-format"
+                          class="form-control"
+                          onchange="updateOutputText(event);">
+                    <option value='0'>По умолчанию (&#rrggbb)</option>
+                    <option value='2'>Наследие (&x&r&r&g&g&b&b)</option>
+                    <option value='6'>Консоль (§x§r§r§g§g§b§b)</option>
+                    <option value='8'>MOTD (\u00A7x)</option>
+                    <option value='1'>Чат (<#rrggbb>)</option>
+                    <option value='7'>Код [COLOR=#rrggbb]</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3" style="padding-left: 0;">
+                  <label for="color-preset">Цвета Сайта</label>
+                  <select id="color-preset"
+                          class="form-control"
+                          onchange="preset(this.value); updateOutputText(event); ">
+                    <option value='0'>Обычний</option>
+                    <option value='1'>Радуга</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <label for="numOfColors">Number of Colors</label>
+                <input class="form-control"
+                       style="width: 75px;"
+                       value="2" id="numOfColors" type="number" min="2" max="10"
+                       onchange="updateOutputText(event); toggleColors(this.value);"
+                       oninput="updateOutputText(event); toggleColors(this.value);"/>
+              </div>
+              <div class="row">
+                <div id="dbold">
+                  <input type="checkbox" id="bold" onclick="updateOutputText(event);" checked />
+                  <label for="bold">Жирный Текст</label>
+                </div>
+                <div id="ditalics">
+                  <input type="checkbox" id="italics" onclick="updateOutputText(event);"/>
+                  <label for="italics">Курсивный текст</label>
+                </div>
+                <div id="dunderline">
+                  <input type="checkbox" id="underline" onclick="updateOutputText(event);"/>
+                  <label for="underline">Подчеркнуть текст</label>
+                </div>
+                <div id="dstrike">
+                  <input type="checkbox" id="strike" onclick="updateOutputText(event);"/>
+                  <label for="strike">Зачеркнутый текст</label>
+                </div>
+                <div id="appearance">
+                  <!-- <input type="checkbox" id="darkmode" onclick="darkMode();"></input>
+                  <label for="darkmode" style="margin-bottom: 0px;margin-top: 0px;"> Dark Mode</label> -->
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Hero Waves Start -->
+    <div class="mini">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#ffb48c"
+        fill-opacity="1"
+        d="M0,288L24,261.3C48,235,96,181,144,154.7C192,128,240,128,288,149.3C336,171,384,213,432,202.7C480,192,528,128,576,133.3C624,139,672,213,720,213.3C768,213,816,139,864,101.3C912,64,960,64,1008,106.7C1056,149,1104,235,1152,240C1200,245,1248,171,1296,144C1344,117,1392,139,1416,149.3L1440,160L1440,0L1416,0C1392,0,1344,0,1296,0C1248,0,1200,0,1152,0C1104,0,1056,0,1008,0C960,0,912,0,864,0C816,0,768,0,720,0C672,0,624,0,576,0C528,0,480,0,432,0C384,0,336,0,288,0C240,0,192,0,144,0C96,0,48,0,24,0L0,0Z"
+      ></path>
+    </svg>
+    <style>
+      .mini {
+        width: 1080px;
+        margin-left: 30px;
+      }
+    </style>
+    </div>
+    <!-- Hero Waves End -->
+
+
+
+    <script src="jscolor.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="script.js"></script>
+    </body>
+
+  <!-- <footer>
+    <p>mikus#4600</p>
+  </footer> -->
+</html>
